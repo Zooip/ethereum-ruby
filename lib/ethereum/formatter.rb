@@ -103,6 +103,10 @@ module Ethereum
       (hexstring.gsub(/^0x/,'')[0..1] == "ff") ? (hexstring.hex - (2 ** 256)) : hexstring.hex
     end
 
+#    def string_to_payload(string)
+#      self.bytes_to_payload(string)
+#    end
+
     def address_to_payload(address)
       from_address(address)
     end
@@ -116,7 +120,7 @@ module Ethereum
     end
 
     def bytes_to_payload(bytes)
-      self.from_utf8(bytes).ljust(64, '0')
+      bytes.gsub(/^0x/,'').ljust(64, '0')
     end
 
     def get_base_type(typename)
@@ -133,12 +137,16 @@ module Ethereum
       self.send(converter, args[1])
     end
 
+#    def output_to_string(bytes)
+#      self.output_to_bytes(bytes)
+#    end
+
     def output_to_address(bytes)
       self.to_address(bytes)
     end
 
     def output_to_bytes(bytes)
-      self.to_utf8(bytes)
+      bytes.gsub(/^0x/,'')
     end
 
     def output_to_uint(bytes)

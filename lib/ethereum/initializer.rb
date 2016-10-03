@@ -12,7 +12,7 @@ module Ethereum
       contracts.each do |contract|
         abi = sol_output["result"][contract]["info"]["abiDefinition"] 
         name = contract
-        code = sol_output["result"][contract]["code"]
+        code = sol_output["result"][contract]["code"].gsub("0x","")
         @contracts << Ethereum::Contract.new(name, code, abi)
       end
     end
