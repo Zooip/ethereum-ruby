@@ -146,7 +146,7 @@ module Ethereum
     end
 
     def output_to_bytes(bytes)
-      bytes.gsub(/^0x/,'')
+      bytes&&bytes.gsub(/^0x/,'')
     end
 
     def output_to_uint(bytes)

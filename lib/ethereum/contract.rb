@@ -108,13 +108,13 @@ module Ethereum
             params[:address] ||=  instance_variable_get("@address")
             params[:topics] = evt.signature
             payload = {topics: [params[:topics]], fromBlock: params[:from_block], toBlock: params[:to_block], address: params[:address]}
-            filter_id = connection.new_filter(payload)
+            filter_id = connection.eth_new_filter(payload)
             return filter_id["result"]
           end
 
           define_method "gfl_#{evt.name.underscore}".to_sym do |filter_id|
             formatter = Ethereum::Formatter.new
-            logs = connection.get_filter_logs(filter_id)
+            logs = connection.eth_get_filter_logs(filter_id)
             collection = []
             logs["result"].each do |result|
               inputs = evt.input_types
@@ -130,7 +130,7 @@ module Ethereum
 
           define_method "gfc_#{evt.name.underscore}".to_sym do |filter_id|
             formatter = Ethereum::Formatter.new
-            logs = connection.get_filter_changes(filter_id)
+            logs = connection.eth_get_filter_changes(filter_id)
             collection = []
             logs["result"].each do |result|
               inputs = evt.input_types
