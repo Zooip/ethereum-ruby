@@ -119,7 +119,9 @@ module Ethereum
             logs["result"].each do |result|
               inputs = evt.input_types
               outputs = inputs.zip(result["topics"][1..-1])
-              data = {blockNumber: result["blockNumber"].hex, transactionHash: result["transactionHash"], blockHash: result["blockHash"], transactionIndex: result["transactionIndex"].hex, topics: []} 
+              raw_event_data=result["data"].gsub("0x","").scan(/.{64}/)
+              formated_event_data=raw_event_data.each_with_index.map{|x,i| formatter.from_payload([evt.input_types[i],x])}
+              data = {blockNumber: result["blockNumber"].hex, transactionHash: result["transactionHash"], blockHash: result["blockHash"], transactionIndex: result["transactionIndex"].hex, topics: [], data: formated_event_data} 
               outputs.each do |output|
                 data[:topics] << formatter.from_payload(output)
               end
