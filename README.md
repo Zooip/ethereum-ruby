@@ -62,6 +62,17 @@ simple_name_registry_instance = SimpleNameRegistry.new
 simple_name_registry_instance.deploy_and_wait(60)
 ```
 
+It is also possible to use a local Solc compiler. This allow tu use full advantages of the compiler, like `@import` instructions
+ 
+```ruby
+init = Ethereum::Initializer.new("#{ENV['PWD']}/spec/fixtures/OwnedContract.sol", client, compiler: Ethereum::SolcCompiler.new)
+init.build_all
+simple_name_registry_instance = SimpleNameRegistry.new
+simple_name_registry_instance.deploy_and_wait(60)
+```
+
+Default compiler is `RpcCompiler`
+
 ### Transacting and Calling Solidity Functions
 
 Solidity functions are exposed using the following conventions: 

@@ -6,9 +6,10 @@ module Ethereum
 
     attr_accessor :contracts, :file, :client
 
-    def initialize(files, client = Ethereum::IpcClient.new, compiler: Ethereum::SolcCompiler.new)
+    def initialize(files, client = Ethereum::IpcClient.new, compiler: nil)
+      @compiler = compiler || Ethereum::RpcCompiler.new(client)
       @client = client
-      compiler_output = compiler.compile(files)
+      compiler_output = @compiler.compile(files)
       contracts = compiler_output.keys
       @contracts = []
       contracts.each do |contract|
