@@ -8,6 +8,7 @@ module Ethereum
   require 'ethereum/client'
   require 'ethereum/ipc_client'
   require 'ethereum/http_client'
+  require 'ethereum/compiler'
   require 'ethereum/initializer'
   require 'ethereum/contract'
   require 'ethereum/function'

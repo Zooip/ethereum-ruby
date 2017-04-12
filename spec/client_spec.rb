@@ -12,7 +12,7 @@ describe Ethereum do
 
   describe 'HttpClient' do
     it 'should work' do
-      client = Ethereum::HttpClient.new('http://localhost:8545')
+      client = Ethereum::HttpClient.new(HTTP_CLIENT_ADDRESS)
       expect(client.eth_accounts['error']).to eq(nil)
     end
   end
